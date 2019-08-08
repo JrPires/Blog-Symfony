@@ -1,11 +1,17 @@
-    {%  for msg in app.session.flashBag.get('success') %}
+{% for msg in app.session.flashBag.get('success') %}
+    <div class="alert alert-success">
         {{ msg }}
+    </div>
+{% endfor %}
+
+    {% for msg in app.session.flashBag.get('warning') %}
+        <div class="alert alert-warning">
+            {{ msg }}
+        </div>
     {% endfor %}
 
-    {%  for msg in app.session.flashBag.get('warning') %}
-        {{ msg }}
-    {% endfor %}
-
-    {%  for msg in app.session.flashBag.get('error') %}
-        {{ msg }}
+    {% for msg in app.session.flashBag.get('error') %}
+        <div class="alert alert-danger">
+            {{ msg }}
+        </div>
     {% endfor %}

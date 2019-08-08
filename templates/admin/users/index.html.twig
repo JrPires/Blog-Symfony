@@ -1,12 +1,27 @@
 {% extends 'admin/admin_layout.html.twig' %}
 
 {% block body %}
-    {%  include  'includes/messages.html.twig' %}
-    <h1>Usuário</h1>
-    <a href="{{ path('admin_user_new') }}">Criar Usuário</a>
-    <hr>
+    <section class="content-header">
+        <h1>
+            Users
+            <small>Autores cadastrados</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
 
-    <table>
+    <!-- Main content -->
+    <section class="content">
+    {%  include  'includes/messages.html.twig' %}
+    <div class="col-md-12">
+        <a href="{{ path('admin_user_new') }}" class="btn btn-success">
+        <i class="fa fa-user"></i> Criar Usuário
+        </a>
+        <hr>
+    </div>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>#</th>
@@ -24,12 +39,15 @@
             <td>{{ user.email }}</td>
             <td>{{ user.createdAt|date('d/M/Y H:i:s') }}</td>
             <td>
-                <a href="{{ path('admin_user_update', {'id':user.id}) }}">editar</a>
-                <a href="{{ path('admin_user_delete', {'id':user.id}) }}">deletar</a>
+                <a href="{{ path('admin_user_update', {'id':user.id}) }}" class="btn btn-sm btn-default">
+                    <i class="fa fa-edit"></i></a>
+                <a href="{{ path('admin_user_delete', {'id':user.id}) }}" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i></a>
             </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
+    </section>
 
 {% endblock %}

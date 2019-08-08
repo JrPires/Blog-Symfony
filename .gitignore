@@ -1,11 +1,14 @@
 
 ###> symfony/framework-bundle ###
+.gitignore
+.env
 /.env.local
 /.env.local.php
 /.env.*.local
 /public/bundles/
 /var/
 /vendor/
+.idea/workspace.xml
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
