@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
@@ -53,6 +54,22 @@ class Post
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="PostCollection")
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="postCollection")
+     * @ORM\JoinTable(name="categories_post")
+     */
+    private $categoryCollection;
+
+    public function __construct()
+    {
+        $this->categoryCollection = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -188,4 +205,47 @@ class Post
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param $author
+     * @return Post
+     */
+    public function setAuthor($author): Post
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Category[]
+     */
+    public function getCategoryCollection()
+    {
+        return $this->categoryCollection;
+    }
+
+    /**
+     * @param $categoryCollection
+     * @return Post
+     */
+    public function setCategoryCollection(Category $categoryCollection): Post
+    {
+        if ($this->categoryCollection->contains($categoryCollection)) {
+            return $this;
+        }
+        $this->categoryCollection[] = $categoryCollection;
+        return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->title;
+    }
 }

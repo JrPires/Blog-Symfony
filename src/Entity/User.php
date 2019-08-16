@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
 * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -26,7 +27,6 @@ class User
 
     /**
      * @ORM\Column(name="last_name", type="string")
-     * @
      * @Assert\NotBlank()
      */
     private $lastName;
@@ -57,6 +57,11 @@ class User
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
+     */
+    private $postCollection;
 
     /**
      * @return mixed
@@ -191,6 +196,25 @@ class User
         $this->updatedAt = $updatedAt;
         return $this;
     }
-    
-    
+
+    public function __toString()
+    {
+        return $this->firtName . '' . $this->lastName;
+    }
+
+    public function getRoles()
+    {
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+
 }
